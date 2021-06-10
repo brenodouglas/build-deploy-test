@@ -1,0 +1,33 @@
+name: Build and commit frontend
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install yarn
+        run: npm i -g yarn
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build frontend
+        run: yarn build
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: Breno Douglas
+          author_email: breno_douglas@hotmail.com
+          message: 'add builded app'
+          add: './dist/'
