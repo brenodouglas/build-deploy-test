@@ -20,7 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: yarn
-
+      
+      - name: Remove build folder case exists
+        run: rm -rf dist/
+        
       - name: Build frontend
         run: yarn build
 
@@ -30,4 +33,4 @@ jobs:
           author_name: Breno Douglas
           author_email: breno_douglas@hotmail.com
           message: 'add builded app'
-          add: './dist/'
+          add: './dist/ --force'
