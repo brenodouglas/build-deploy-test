@@ -1,4 +1,4 @@
-name: Build and commit frontend
+name: Build and deploy frontend
 on:
   push:
     branches:
@@ -27,10 +27,9 @@ jobs:
       - name: Build frontend
         run: yarn build
 
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v7
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          author_name: Breno Douglas
-          author_email: breno_douglas@hotmail.com
-          message: 'add builded app'
-          add: './dist/ --force'
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: "bdouglasans@gmail.com"
+          appdir: "."
