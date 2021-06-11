@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "heroku-prebuild": "npm install pm2 -g",
-    "start": "pm2 kill && pm2 serve ./dist 8080 --spa",
+    "start": "node server.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

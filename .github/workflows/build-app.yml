@@ -34,7 +34,8 @@ jobs:
         run: |
           git config --global user.email "breno_douglas@hotmail.com"
           git config --global user.name "Breno Douglas"
-          git commit -am "Add dist folder"
+          git add -A
+          git commit -m "Add dist folder"
 
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
