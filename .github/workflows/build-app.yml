@@ -31,10 +31,13 @@ jobs:
         run: git add dist/ --force
       
       - name: Commit dist
-        run: git commit -am "Add dist folder"
+        run: |
+          git config --global user.email "breno_douglas@hotmail.com"
+          git config --global user.name "Breno Douglas"
+          git commit -am "Add dist folder"
 
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: "bdouglasans@gmail.com"
+          heroku_email: "breninho94@gmail.com"
