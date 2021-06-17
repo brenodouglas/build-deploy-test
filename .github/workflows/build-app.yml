@@ -45,7 +45,10 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install dependencies
-        run: yarn
+        run: |
+          if [ ! -d "./node_modules" ]; then
+            yarn
+          fi
       
       - name: Cache dist
         uses: actions/cache@v2
