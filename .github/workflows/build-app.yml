@@ -59,6 +59,8 @@ jobs:
             git config --global user.name "Breno Douglas"
             git commit -m "Add dist folder for push to heroku"
           fi
+        env:
+          VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
 
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
