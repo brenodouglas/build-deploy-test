@@ -8,7 +8,7 @@ jobs:
     name: Build frontend
     runs-on: ubuntu-latest
     env:
-          VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
+      VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
