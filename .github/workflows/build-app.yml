@@ -7,8 +7,6 @@ jobs:
   build:
     name: Build frontend
     runs-on: ubuntu-latest
-    env:
-      VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -55,13 +53,14 @@ jobs:
       - name: Build and add dist
         run: |
           if [ ! -d "./dist" ]; then
+            echo "VUE_APP_TESTE_ENV=${{secrets.VUE_APP_TESTE_ENV_PROD}}" >> ".env"
             yarn build
             git add dist/ --force
             git config --global user.email "breno_douglas@hotmail.com"
             git config --global user.name "Breno Douglas"
             git commit -m "Add dist folder for push to heroku"
           fi
-
+          
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
