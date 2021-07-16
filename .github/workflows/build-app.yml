@@ -60,7 +60,7 @@ jobs:
             git config --global user.name "Breno Douglas"
             git commit -m "Add dist folder for push to heroku"
           fi
-
+          
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
