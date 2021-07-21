@@ -72,7 +72,8 @@ jobs:
             git config --global user.email "breno_douglas@hotmail.com"
             git config --global user.name "Breno Douglas"
 
-            if [ ! -d "./dist" ];   
+            if [ ! -d "./dist" ]
+            then
               yarn build-vue
               if [ $? -eq 0 ] 
               then
