@@ -73,9 +73,14 @@ jobs:
             git config --global user.name "Breno Douglas"
 
             if [ ! -d "./dist" ]; then
-              yarn build-vue \
-                && git add dist/ --force \
-                && git commit -m "Add dist folder for push to heroku"
+              yarn build-vue 
+              if [ $? -ne 0 ]; then
+                echo "Build failed"
+                exit 1
+              fi
             fi
+
+            git add dist/ --force
+            git commit -m "Add dist folder for push to heroku"
             
             git push -f heroku main
