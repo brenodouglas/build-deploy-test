@@ -72,16 +72,10 @@ jobs:
             git config --global user.email "breno_douglas@hotmail.com"
             git config --global user.name "Breno Douglas"
 
-            if [ ! -d "./dist" ]
-            then
-              yarn build-vue
-              if [ $? -eq 0 ] 
-              then
-                git add dist/ --force 
-                git commit -m "Add dist folder for push to heroku"
-              else
-                exit 1
-              fi
+            if [ ! -d "./dist" ]; then
+              yarn build-vue \
+                && git add dist/ --force \
+                && git commit -m "Add dist folder for push to heroku"
             fi
             
             git push -f heroku main
