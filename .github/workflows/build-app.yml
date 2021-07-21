@@ -74,10 +74,11 @@ jobs:
 
             if [ ! -d "./dist" ];   
               yarn build-vue
-              if [ $? -eq 0 ] then
+              if [ $? -eq 0 ] 
+              then
                 git add dist/ --force 
                 git commit -m "Add dist folder for push to heroku"
-              else 
+              else
                 exit 1
               fi
             fi
