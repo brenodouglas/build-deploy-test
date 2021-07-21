@@ -78,4 +78,4 @@ jobs:
             EOF
             
             heroku git:remote --app $HEROKU_APP_NAME
-            git push -f heroku master
+            git push -f heroku main
