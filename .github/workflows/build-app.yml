@@ -63,6 +63,10 @@ jobs:
           VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
 
       - name: Deploy to heroku
+        env:
+          HEROKU_EMAIL: breninho94@gmail.com
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+          HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
         run: |
             cat > ~/.netrc <<EOF
               machine api.heroku.com
