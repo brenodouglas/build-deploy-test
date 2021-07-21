@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - name: Set up Node.js
         uses: actions/setup-node@v1
         with:
@@ -56,10 +56,6 @@ jobs:
         run: |
           if [ ! -d "./dist" ]; then
             yarn build-vue
-            git add dist/ --force
-            git config --global user.email "breno_douglas@hotmail.com"
-            git config --global user.name "Breno Douglas"
-            git commit -m "Add dist folder for push to heroku"
           fi
         env:
           VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
@@ -80,4 +76,8 @@ jobs:
             EOF
             
             heroku git:remote --app $HEROKU_APP_NAME
+            git add dist/ --force
+            git config --global user.email "breno_douglas@hotmail.com"
+            git config --global user.name "Breno Douglas"
+            git commit -m "Add dist folder for push to heroku"
             git push -f heroku main
