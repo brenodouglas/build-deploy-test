@@ -78,5 +78,5 @@ jobs:
             EOF
             
             heroku git:remote --app $HEROKU_APP_NAME
-            git filter-branch -- --all
+            [[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow
             git push -f heroku main
