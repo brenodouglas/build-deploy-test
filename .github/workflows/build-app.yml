@@ -62,8 +62,16 @@ jobs:
         env:
           VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
 
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: "breninho94@gmail.com"
+      - name: Deploy to heroku
+        run: |
+            cat > ~/.netrc <<EOF
+              machine api.heroku.com
+                  login $HEROKU_EMAIL
+                  password $HEROKU_API_KEY
+              machine git.heroku.com
+                  login $HEROKU_EMAIL
+                  password $HEROKU_API_KEY
+            EOF
+            
+            heroku git:remote --app $HEROKU_APP_NAME
+            git push -f heroku master
