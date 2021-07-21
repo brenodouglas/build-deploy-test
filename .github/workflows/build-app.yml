@@ -74,7 +74,6 @@ jobs:
             EOF
             
             heroku git:remote --app $HEROKU_APP_NAME
-#            [[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow
             git fetch --all --unshallow
             git add dist/ --force
             git config --global user.email "breno_douglas@hotmail.com"
