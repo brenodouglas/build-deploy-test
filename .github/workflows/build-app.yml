@@ -51,20 +51,13 @@ jobs:
         with:
           path: '**/dist'
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/src') }}
-        
-      - name: Build and add dist
-        run: |
-          if [ ! -d "./dist" ]; then
-            yarn build-vue
-          fi
-        env:
-          VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
 
       - name: Deploy to heroku
         env:
           HEROKU_EMAIL: breninho94@gmail.com
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
           HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
+          VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
         run: |
             cat > ~/.netrc <<EOF
               machine api.heroku.com
@@ -76,8 +69,13 @@ jobs:
             EOF
             
             heroku git:remote --app $HEROKU_APP_NAME
-            git add dist/ --force
             git config --global user.email "breno_douglas@hotmail.com"
             git config --global user.name "Breno Douglas"
-            git commit -m "Add dist folder for push to heroku"
+
+            if [ ! -d "./dist" ];   
+              yarn build-vue \
+                && git add dist/ --force \
+                && git commit -m "Add dist folder for push to heroku"
+            fi
+            
             git push -f heroku main
