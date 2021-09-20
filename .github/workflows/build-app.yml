@@ -52,23 +52,16 @@ jobs:
           path: '**/dist'
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/src') }}
 
-      - name: Deploy to heroku
+      - name: Push for staging branch
         env:
           HEROKU_EMAIL: breninho94@gmail.com
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
           HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
           VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
         run: |
-            cat > ~/.netrc <<EOF
-              machine api.heroku.com
-                  login $HEROKU_EMAIL
-                  password $HEROKU_API_KEY
-              machine git.heroku.com
-                  login $HEROKU_EMAIL
-                  password $HEROKU_API_KEY
-            EOF
-            
-            heroku git:remote --app $HEROKU_APP_NAME
+            git checkout staging
+            git pull origin main
+
             git config --global user.email "breno_douglas@hotmail.com"
             git config --global user.name "Breno Douglas"
 
@@ -81,19 +74,6 @@ jobs:
             fi
 
             git add dist/ --force
-            git commit -m "Add dist folder for push to heroku"
+            git commit -m "Add dist folder"
             
-            git push -f heroku main
-      - name: Bump version and push tag
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v5.6
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create a GitHub release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.tag_version.outputs.new_tag }}
-          release_name: Release ${{ steps.tag_version.outputs.new_tag }}
-          body: ${{ steps.tag_version.outputs.changelog }}
+            git push -f origin staging
