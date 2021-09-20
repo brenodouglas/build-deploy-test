@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <h2>{{ teste }}</h2>
-    <HelloWorld msg="Welcome to Your Test Build App in github v2 without cache"/>
+    <HelloWorld msg="Welcome to Your Test Build App in github v2 without cache.."/>
   </div>
 </template>
 
