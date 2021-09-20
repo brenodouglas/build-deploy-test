@@ -49,7 +49,7 @@ jobs:
           cache-name: cache-dist
         with:
           path: '**/dist'
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/src') }}
+          key: ${{ runner.os }}-build-${{ github.ref }}-${{ env.cache-name }}-${{ hashFiles('**/src') }}
 
       - name: Push for staging branch
         env:
