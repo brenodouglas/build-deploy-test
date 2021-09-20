@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-        with:
-          ref: staging
 
       - name: Set up Node.js
         uses: actions/setup-node@v1
@@ -61,10 +59,7 @@ jobs:
         run: |
             git config user.email "breno_douglas@hotmail.com"
             git config user.name "Breno Douglas"
-            git config pull.rebase true 
-
-            git fetch origin main
-            git merge -s recursive -X theirs origin/main
+            git config pull.rebase true
             
             if [ ! -d "./dist" ]; then
               yarn build-vue 
@@ -77,4 +72,4 @@ jobs:
             git add dist/ --force
             git commit -m "Add dist folder"
             
-            git push -f origin staging
+            git push -f origin main:staging
