@@ -63,8 +63,9 @@ jobs:
             git config user.name "Breno Douglas"
             git config pull.rebase true 
 
-            git pull origin main
-
+            git fetch origin main
+            git merge -s recursive -X theirs origin/main
+            
             if [ ! -d "./dist" ]; then
               yarn build-vue 
               if [ $? -ne 0 ]; then
