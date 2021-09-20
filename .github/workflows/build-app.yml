@@ -59,11 +59,13 @@ jobs:
           HEROKU_APP_NAME: ${{secrets.HEROKU_APP_NAME}}
           VUE_APP_TESTE_ENV: ${{secrets.VUE_APP_TESTE_ENV_PROD}}
         run: |
+            git config --global user.email "breno_douglas@hotmail.com"
+            git config --global user.name "Breno Douglas"
+            git config pull.rebase true 
+            
             git checkout staging
             git pull origin main
 
-            git config --global user.email "breno_douglas@hotmail.com"
-            git config --global user.name "Breno Douglas"
 
             if [ ! -d "./dist" ]; then
               yarn build-vue 
