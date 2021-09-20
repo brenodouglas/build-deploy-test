@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - development
 jobs:
   build:
     name: Build frontend
@@ -72,4 +73,8 @@ jobs:
             git add dist/ --force
             git commit -m "Add dist folder"
             
-            git push -f origin main:staging
+            if [[ "$GITHUB_REF" == 'refs/heads/main' ]]; then
+              git push -f origin main:staging
+            else 
+              echo "push in prod"
+            fi
